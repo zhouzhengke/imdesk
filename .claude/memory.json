@@ -1,0 +1,104 @@
+{
+  "project": "IM工单系统",
+  "version": "1.0.0",
+  "phase": "Phase 1",
+  "created": "2026-05-26",
+  "design_doc": "docs/superpowers/specs/2026-05-26-im-ticket-system-design.md",
+  "requirement_doc": "doc/requirement.md",
+  "decisions": [
+    {
+      "id": "D001",
+      "category": "architecture",
+      "decision": "六层分层架构：api → application → domain → infra → dao → common",
+      "rationale": "严格单向依赖，领域层隔离外部变化",
+      "alternatives": ["DDD 四层", "传统 MVC 三层"],
+      "date": "2026-05-26"
+    },
+    {
+      "id": "D002",
+      "category": "routing",
+      "decision": "规则引擎优先 + 大模型兜底的混合路由策略",
+      "rationale": "高频指令毫秒级响应，长尾自然语言交由 LLM 处理，兼顾性能和智能",
+      "alternatives": ["纯规则引擎", "纯大模型路由"],
+      "date": "2026-05-26"
+    },
+    {
+      "id": "D003",
+      "category": "ai",
+      "decision": "大模型能力范围：智能路由 + 知识库问答 + 工单辅助（自动标签/分类/摘要）",
+      "rationale": "在路由基础上扩展更多 AI 场景，最大化大模型价值",
+      "date": "2026-05-26"
+    },
+    {
+      "id": "D004",
+      "category": "tech-stack",
+      "decision": "后端：Java 17 + Spring Boot 3.x + Spring AI + MyBatis-Plus；前端：Vue 3 + Element Plus + TypeScript",
+      "rationale": "团队 Java 技术栈；Vue + Element Plus 是国内后台管理系统主流方案",
+      "alternatives": ["Python/FastAPI", "Go/Gin", "React/Ant Design"],
+      "date": "2026-05-26"
+    },
+    {
+      "id": "D005",
+      "category": "integration",
+      "decision": "Phase 1 不接入外部统一用户体系和业务系统，预留 OAuth 2.0 对接接口和 API 网关",
+      "rationale": "降低 Phase 1 复杂度，聚焦核心 IM 工单流程",
+      "date": "2026-05-26"
+    },
+    {
+      "id": "D006",
+      "category": "notification",
+      "decision": "双通道通知系统：内部通知（工作台推送 + IM Bot）+ 外部通知（回源 IM 渠道），通过模板引擎管理",
+      "rationale": "用户在哪个渠道提问，通知就回到哪个渠道，体验一致",
+      "date": "2026-05-26"
+    },
+    {
+      "id": "D007",
+      "category": "knowledge",
+      "decision": "三层知识检索：FAQ 精确匹配（L1）→ 文档 RAG（L2）→ 历史工单检索（L3）",
+      "rationale": "FAQ 毫秒级、文档 RAG 语义级、历史工单经验级，逐级兜底",
+      "date": "2026-05-26"
+    },
+    {
+      "id": "D008",
+      "category": "ticket",
+      "decision": "8 状态工单生命周期，使用纯状态机（Spring StateMachine + Enum）管理，不引入流程引擎",
+      "rationale": "工单状态转移都是确定的、单步的，不需要 BPMN 流程引擎的复杂度和运维成本",
+      "alternatives": ["Flowable/Activiti 流程引擎"],
+      "date": "2026-05-26"
+    },
+    {
+      "id": "D009",
+      "category": "deployment",
+      "decision": "Phase 1 中等规模：10-20 资方、20-50 客服、日工单 100-500。多实例部署 + Nginx 负载均衡",
+      "rationale": "单体架构 + 多实例即可满足需求；微服务化留到后续需要时再拆",
+      "date": "2026-05-26"
+    },
+    {
+      "id": "D010",
+      "category": "channels",
+      "decision": "Phase 1 首发企业微信 + 飞书；钉钉、Slack 为二期。通过 ChannelAdapter 接口抽象实现渠道解耦",
+      "rationale": "企业微信和飞书覆盖核心资方沟通场景",
+      "date": "2026-05-26"
+    },
+    {
+      "id": "D011",
+      "category": "knowledge",
+      "decision": "工单关闭后 LLM 自动摘要 → 人工审核（可选）→ 入库历史工单库。客服工作台展示相似工单 Top3",
+      "rationale": "让历史工单持续沉淀为可检索的知识资产",
+      "date": "2026-05-26"
+    },
+    {
+      "id": "D012",
+      "category": "escalation",
+      "decision": "KB 升级策略：用户主动要求转人工（最高优先）> LLM 判断无法回答 > KB 交互轮次 ≥ 3 > LLM 直接识别为 create_ticket",
+      "rationale": "多层保障，避免用户连续被 KB 回答但问题未解决的情况",
+      "date": "2026-05-26"
+    }
+  ],
+  "constraint_files": [
+    ".claude/rules/tech-stack.md",
+    ".claude/rules/architecture.md",
+    ".claude/rules/error-handling.md",
+    ".claude/rules/testing.md"
+  ]
+}
