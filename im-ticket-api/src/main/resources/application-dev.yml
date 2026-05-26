@@ -1,0 +1,19 @@
+logging:
+  level:
+    com.company.imticket: DEBUG
+
+im:
+  channel:
+    wecom:
+      corp-id: ${WECOM_CORP_ID:}
+      secret: ${WECOM_SECRET:}
+      token: ${WECOM_TOKEN:}
+      encoding-aes-key: ${WECOM_ENCODING_AES_KEY:}
+    feishu:
+      app-id: ${FEISHU_APP_ID:}
+      app-secret: ${FEISHU_APP_SECRET:}
+      verification-token: ${FEISHU_VERIFICATION_TOKEN:}
+  duty:
+    timeout-minutes: 5
+  knowledge:
+    escalation-rounds: 3

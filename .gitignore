@@ -1,0 +1,12 @@
+HELP.md
+target/
+.idea/
+*.iml
+.vscode/
+node_modules/
+dist/
+.superpowers/
+.env*
+*.log
+build/
+.DS_Store
