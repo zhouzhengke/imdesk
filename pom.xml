@@ -30,6 +30,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <lombok.version>1.18.34</lombok.version>
         <mybatis-plus.version>3.5.7</mybatis-plus.version>
         <spring-ai.version>1.0.0-M4</spring-ai.version>
         <redisson.version>3.32.0</redisson.version>

@@ -4,16 +4,10 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/**
- * 不可变实体基类，仅提供主键ID和创建时间。
- * 适用于仅追加写入、不需要更新和逻辑删除的不可变记录表。
- */
-@Data
 public abstract class ImmutableBaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -23,4 +17,9 @@ public abstract class ImmutableBaseEntity implements Serializable {
 
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createdAt;
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }

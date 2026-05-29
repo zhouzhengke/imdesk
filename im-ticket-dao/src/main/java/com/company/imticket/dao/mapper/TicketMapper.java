@@ -24,6 +24,9 @@ public interface TicketMapper extends BaseMapper<Ticket> {
     @Select("SELECT * FROM im_ticket WHERE channel_user_id = #{channelUserId} AND channel = #{channel} AND status NOT IN ('CLOSED') AND deleted = 0 LIMIT 1")
     Ticket findOpenTicketByChannelUser(@Param("channel") String channel, @Param("channelUserId") String channelUserId);
 
+    @Select("SELECT * FROM im_ticket WHERE channel_user_id = #{channelUserId} AND channel = #{channel} AND status NOT IN ('CLOSED') AND deleted = 0 LIMIT 1 FOR UPDATE")
+    Ticket findOpenTicketByChannelUserForUpdate(@Param("channel") String channel, @Param("channelUserId") String channelUserId);
+
     @Select("SELECT COUNT(*) FROM im_ticket WHERE status = 'PENDING' AND deleted = 0")
     Long countPendingTickets();
 }
