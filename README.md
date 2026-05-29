@@ -143,17 +143,6 @@ Connect via STOMP over SockJS at `/ws`:
 | `/topic/ticket/{ticketId}/status` | Ticket status change |
 | `/topic/duty/unassigned-alert` | Unassigned pool alert |
 
-## Development Status
-
-| Phase | Status |
-|-------|--------|
-| Phase 0-1: Project scaffold + DAO | Done |
-| Phase 2: Infrastructure layer | Done |
-| Phase 3: Domain services | Done |
-| Phase 4: Application services | Done |
-| Phase 5: API + WebSocket | Done |
-| Phase 6: Frontend workbench | Done |
-| Phase 7: Integration & E2E tests | Done |
 
 ## License
 
